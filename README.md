@@ -36,7 +36,6 @@ Database Creation: Created a database named Library_Management_Project.
 Table Creation: Created tables for branches, employees, members, books, issued status, and return status. Each table includes relevant columns and relationships.
 
 ''' sql
--- Library Management System Project
 DROP TABLE IF EXISTS branch;
 CREATE TABLE branch
          (
