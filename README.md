@@ -507,5 +507,11 @@ GROUP BY m.member_id;
 
 select * from overdue_books_summary
 ```
+# Reports
+- **Database Schema: Detailed table structures and relationships.**
+- **Data Analysis: Insights into book categories, employee salaries, member registration trends, and issued books.**
+- **Summary Reports: Aggregated data on high-demand books and employee performance.**
+# Conclusion
+This project demonstrates the practical application of SQL in creating and managing a library management system. It includes tasks such as data insertion, updates, advanced querying, and reporting, offering a comprehensive understanding of database operations.
 
-**Check out the project files and SQL scripts in the repository!**
+
