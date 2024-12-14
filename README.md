@@ -35,7 +35,12 @@ Below is the database schema for the Library Management System:
 Database Creation: Created a database named Library_Management_Project.
 Table Creation: Created tables for branches, employees, members, books, issued status, and return status. Each table includes relevant columns and relationships.
 
-'''sql
+## Library Management System - SQL Schema
+
+Below is the SQL code for setting up the database schema of the Library Management System:
+
+```sql
+-- Library Management System Project
 DROP TABLE IF EXISTS branch;
 CREATE TABLE branch
          (
@@ -73,7 +78,6 @@ CREATE TABLE members
 		  reg_date DATE
           );
 
-
 DROP TABLE IF EXISTS issued_status;
 CREATE TABLE issued_status
          (issued_id	VARCHAR(10) PRIMARY KEY,
@@ -83,7 +87,6 @@ CREATE TABLE issued_status
 		  issued_book_isbn VARCHAR(30), --fk
 		  issued_emp_id VARCHAR(10) --fk
 		 );
-
 
 DROP TABLE IF EXISTS return_status;
 CREATE TABLE return_status
@@ -105,12 +108,10 @@ ADD CONSTRAINT fk_books
 FOREIGN KEY (issued_book_isbn) 
 REFERENCES books(isbn);		
 
-
 ALTER TABLE issued_status 
 ADD CONSTRAINT fk_employees 
 FOREIGN KEY (issued_emp_id) 
 REFERENCES employees(emp_id);	
-
 
 ALTER TABLE employees 
 ADD CONSTRAINT fk_branch 
@@ -121,7 +122,7 @@ ALTER TABLE return_status
 ADD CONSTRAINT fk_issue_status 
 FOREIGN KEY (issued_id) 
 REFERENCES issued_status(issued_id);
-'''
+
 This project highlights my ability to work with databases and solve practical challenges through robust and efficient SQL implementations.
 
 
