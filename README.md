@@ -138,6 +138,18 @@ VALUES('978-1-60129-456-2', 'To Kill a Mockingbird',
 'Classic', 6.00, 'yes', 'Harper Lee', 'J.B. Lippincott & Co.');
 ```
 
+### Task 2: Update an Existing Member's Address
+```sql
+UPDATE members
+SET member_address='459 Elm st'
+WHERE member_id='C102';
+```
+### Task 3: Delete a Record from the Issued Status Table Objective: Delete the record with issued_id = 'IS121' from the issued_status table.
+```sql
+DELETE FROM issued_status
+WHERE issued_id = 'IS121';
+```
+
 This project highlights my ability to work with databases and solve practical challenges through robust and efficient SQL implementations.
 
 
