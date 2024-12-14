@@ -188,6 +188,45 @@ SELECT * FROM book_cnt;
 SELECT * FROM books WHERE category='Classic';
 ```
 
+### Task 8: Find Total Rental Income by Category:
+```sql
+SELECT b.category,sum(rental_price),count(*)
+FROM books as b
+JOIN issued_status  as ist
+ON ist.issued_book_isbn = b.isbn
+GROUP BY 1;
+```
+### Task 9: List Members Who Registered in the Last 180 Days:
+```sql
+INSERT INTO members(member_id,member_name,member_address,reg_date)
+VALUES('C120','Ron Weasley','655 Pine St','2024-09-24'),
+('C121','Harry Potter','695 Oak St','2024-10-20');
+
+SELECT * FROM members WHERE reg_date >= CURRENT_DATE - INTERVAL '180 days';
+```
+### Task 10: List Employees with Their Branch Manager's Name and their branch details:
+```sql
+SELECT * FROM employees;
+SELECT * FROM branch;
+
+SELECT e1.*,
+b.manager_id,
+e2.emp_name as Manager_Name,
+b.branch_address
+FROM employees as e1
+JOIN branch as b
+ON b.branch_id = e1.branch_id
+JOIN employees as e2
+ON e2.emp_id=b.manager_id;
+```
+### Task 11. Create a Table of Books with Rental Price Above a Certain Threshold:
+```sql
+CREATE TABLE books_rental_more_than_six
+AS
+SELECT * FROM books
+WHERE rental_price>=6;
+```
+
 This project highlights my ability to work with databases and solve practical challenges through robust and efficient SQL implementations.
 
 
