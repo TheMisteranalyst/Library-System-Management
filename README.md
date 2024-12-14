@@ -376,7 +376,136 @@ WHERE member_id IN (SELECT
                     );
 ```
 
-This project highlights my ability to work with databases and solve practical challenges through robust and efficient SQL implementations.
+### Task 17: Find Employees with the Most Book Issues Processed
+Write a query to find the top 3 employees who have processed the most book issues.
+Display the employee name, number of books processed, and their branch.
 
+```sql
+SELECT 
+    e.emp_name,
+    b.*,
+    COUNT(ist.issued_id) as no_book_issued
+FROM issued_status as ist
+JOIN
+employees as e
+ON e.emp_id = ist.issued_emp_id
+JOIN
+branch as b
+ON e.branch_id = b.branch_id
+GROUP BY 1, 2;
+```
+### Task 18: Identify Members Issuing High-Risk Books
+Write a query to identify members who have issued books more than twice with the status "damaged" in the books table. 
+Display the member name, book title, and the number of times they've issued damaged books.
+
+```sql
+SELECT * FROM books
+
+SELECT * FROM return_status
+SELECT * FROM members
+SELECT * FROM issued_status
+
+
+SELECT 
+    DISTINCT
+	m.member_name,
+    b.book_title,
+    COUNT(ist.issued_id) AS no_books_issued
+FROM 
+    issued_status AS ist
+JOIN
+    members AS m
+ON 
+    m.member_id = ist.issued_member_id
+JOIN
+    books AS b
+ON 
+    ist.issued_book_isbn = b.isbn
+LEFT JOIN 
+    return_status AS rs
+ON 
+    rs.issued_id = ist.issued_id
+WHERE 
+    rs.book_quality ='Damaged'  
+GROUP BY 
+    m.member_name, b.book_title
+HAVING 
+    COUNT(ist.issued_id) >2;
+```
+### Task 19: Stored Procedure Objective: 
+Create a stored procedure to manage the status of books in a library system.Description: Write a stored procedure that updates the status of a book in the library based on its issuance. The procedure should function as follows: The stored procedure should take the book_id as an input parameter. The procedure should first check if the book is available (status = 'yes').If the book is available, it should be issued, and the status in the books table should be updated to 'no'. If the book is not available (status = 'no'), the procedure should return an error message indicating that the book is currently not available.	
+This project highlights my ability to work with databases and solve practical challenges through robust and efficient SQL implementations.
+```sql
+SELECT * FROM issued_status;
+SELECT * FROM books;
+
+CREATE OR REPLACE PROCEDURE issue_book_status(p_issued_id VARCHAR(10),p_issued_member_id VARCHAR(10),
+p_issued_book_isbn VARCHAR(30),p_issued_emp_id VARCHAR(10))
+LANGUAGE plpgsql
+AS $$
+DECLARE 
+       v_status VARCHAR(10);
+	   v_title VARCHAR(80);
+
+BEGIN
+      SELECT status,book_title 
+	  INTO v_status,v_title 
+	  FROM books
+	  WHERE isbn=p_issued_book_isbn;
+
+	  IF v_status ='yes' THEN
+	               INSERT INTO issued_status(issued_id,issued_member_id,issued_book_name,issued_date,issued_book_isbn,issued_emp_id)
+	               VALUES
+	                 (p_issued_id,p_issued_member_id,v_title,CURRENT_DATE,p_issued_book_isbn,p_issued_emp_id);
+                   UPDATE books
+                   SET status='no'
+                   WHERE isbn=p_issued_book_isbn;
+      
+      RAISE NOTICE 'Book records added successfully for book ISBN: %, Title: %', p_issued_book_isbn, v_title;
+
+	  ELSE
+	       RAISE NOTICE 'Sorry! The book you have requested is unavailable. ISBN: %, Title: %', p_issued_book_isbn, v_title;
+
+
+	  END IF;
+END;
+$$
+
+
+-- Testing The function
+SELECT * FROM books;
+-- ""978-0-14-044930-3"" -- no
+-- ""978-0-141-44171-6"" -- yes
+SELECT * FROM issued_status;
+
+CALL issue_book_status('IS156', 'C109', '978-0-14-044930-3', 'E108');
+CALL issue_book_status('IS156', 'C108', '"978-0-141-44171-6"', 'E104');
+
+SELECT * FROM books
+WHERE isbn = '978-0-14-044930-3'
+
+```
+### Task 20: Create Table As Select (CTAS) Objective: 
+Create a CTAS (Create Table As Select) query to identify overdue books and calculate fines.
+Description: Write a CTAS query to create a new table that lists each member and the books they have issued but not returned within 60 days. The table should include: The number of overdue books. The total fines, with each day's fine calculated at $0.50. The number of books issued by each member. The resulting table should show: Member ID Number of overdue books Total fines
+```sql
+CREATE TABLE overdue_books_summary AS
+SELECT
+    m.member_id,
+    m.member_name,
+    COUNT(*) AS overdue_books,
+    SUM(CASE WHEN CURRENT_DATE - ist.issued_date > 60 AND rs.return_date IS NULL THEN 
+        (CURRENT_DATE - ist.issued_date - 60) * 0.50 ELSE 0 END) AS total_fines
+FROM issued_status AS ist
+JOIN members AS m
+ON ist.issued_member_id = m.member_id
+LEFT JOIN return_status AS rs
+ON ist.issued_id = rs.issued_id
+WHERE rs.return_date IS NULL
+AND (CURRENT_DATE - ist.issued_date) >= 60
+GROUP BY m.member_id;
+
+select * from overdue_books_summary
+```
 
 **Check out the project files and SQL scripts in the repository!**
