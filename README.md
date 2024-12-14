@@ -263,6 +263,80 @@ rs.return_date IS NULL
 AND
 (CURRENT_DATE - ist.issued_date)>=60;
 ```
+### Task 14: Update Book Status on Return
+Write a query to update the status of books in the books table to "Yes" 
+when they are returned (based on entries in the return_status table).
+```sql
+--manual way of updating status
+SELECT * FROM return_status
+where issued_id='IS154';
+
+SELECT * FROM books
+where isbn='978-0-375-50167-0';
+
+SELECT * FROM issued_status as ist
+where ist.issued_book_isbn='978-0-375-50167-0';
+
+UPDATE books
+SET status='No'
+WHERE isbn='978-0-375-50167-0'
+
+INSERT INTO return_status(return_id,issued_id,return_date,book_quality)
+VALUES('RS152','IS154',CURRENT_DATE,'Good')
+
+
+UPDATE books
+SET status='yes'
+WHERE isbn='978-0-375-50167-0';
+SELECT * FROM books
+where isbn='978-0-375-50167-0'
+
+-- Store procedures
+CREATE OR REPLACE PROCEDURE add_return_records(p_return_id VARCHAR(10),p_issued_id VARCHAR(10),p_book_quality VARCHAR(15))
+LANGUAGE plpgsql
+AS $$
+DECLARE
+        v_isbn VARCHAR(30);
+		v_book_name VARCHAR(85);
+
+BEGIN
+     --Inserting into return based on user input 
+     INSERT INTO return_status(return_id,issued_id,return_date,book_quality)
+     VALUES(p_return_id,p_issued_id,CURRENT_DATE,p_book_quality);
+
+
+     SELECT
+	 ist.issued_book_isbn,
+	 issued_book_name
+	 INTO
+	 v_isbn,v_book_name
+	 FROM issued_status as ist 
+	 WHERE issued_id=p_issued_id;
+
+	 
+     UPDATE books
+     SET status='yes'
+     WHERE isbn=v_isbn;
+
+	 RAISE NOTICE 'Thank You For Returning the book: %',v_book_name;   --RAISE NOTICE WORK LIKE PRINT AND IT WILL PRINT WHAT YOU WANT
+END;
+$$ 
+
+-- Testing function add_return_records
+SELECT * FROM books
+WHERE isbn='978-0-7432-7357-1'
+
+SELECT * FROM issued_status
+where issued_book_isbn='978-0-7432-7357-1'
+
+SELECT * FROM return_status
+WHERE issued_id='IS136'
+
+
+CALL add_return_records('RS139','IS136','Good');
+```
+
+
 
 This project highlights my ability to work with databases and solve practical challenges through robust and efficient SQL implementations.
 
