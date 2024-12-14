@@ -24,7 +24,12 @@ This project demonstrates the design and implementation of a **Library Managemen
 - Effective data management and problem-solving in library operations.
 
 # Project structure
-#### 1. Database Setup
+#### 1. Database Schema
+
+Below is the database schema for the Library Management System:
+
+![Library Management System Schema](assets/Library system management project.pgerd.png)
+
 
 
 This project highlights my ability to work with databases and solve practical challenges through robust and efficient SQL implementations.  
