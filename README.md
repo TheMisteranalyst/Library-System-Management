@@ -28,7 +28,9 @@ This project demonstrates the design and implementation of a **Library Managemen
 
 Below is the database schema for the Library Management System:
 
-![Library Management System Schema](assets/Library system management project.pgerd.png)
+
+![Library Management System Schema](Library%20system%20management%20project.pgerd.png)
+
 
 
 
