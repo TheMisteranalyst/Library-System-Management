@@ -144,11 +144,44 @@ UPDATE members
 SET member_address='459 Elm st'
 WHERE member_id='C102';
 ```
-### Task 3: Delete a Record from the Issued Status Table Objective: Delete the record with issued_id = 'IS121' from the issued_status table.
+### Task 3: Delete a Record from the Issued Status Table
+**Objective: Delete the record with issued_id = 'IS121' from the issued_status table.**
 ```sql
 DELETE FROM issued_status
 WHERE issued_id = 'IS121';
 ```
+### Task 4: Retrieve All Books Issued by a Specific Employee
+**Objective: Select all books issued by the employee with emp_id = 'E101'.**
+```sql
+SELECT * FROM issued_status where issued_emp_id='E101';
+```
+
+### Task 5: List Members Who Have Issued More Than One Book
+**Objective: Use GROUP BY to find members who have issued more than one book.**
+```sql
+
+SELECT members.member_id, members.member_name,COUNT(issued_status.issued_member_id)
+FROM members
+JOIN issued_status ON members.member_id = issued_status.issued_member_id
+GROUP BY members.member_id, members.member_name
+HAVING COUNT(issued_status.issued_member_id) > 1;
+```
+### CTAS
+### Task 6: Create Summary Tables:
+**Used CTAS to generate new tables based on query results each book and total book_issued_cnt**
+```sql
+
+CREATE TABLE book_cnt
+AS 
+SELECT b.isbn,b.book_title,COUNT(ist.issued_book_name)
+FROM books as b
+JOIN issued_status  as ist
+ON ist.issued_book_isbn = b.isbn
+GROUP BY 1,2;
+
+SELECT * FROM book_cnt;
+```
+
 
 This project highlights my ability to work with databases and solve practical challenges through robust and efficient SQL implementations.
 
