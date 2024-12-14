@@ -35,7 +35,7 @@ Below is the database schema for the Library Management System:
 Database Creation: Created a database named Library_Management_Project.
 Table Creation: Created tables for branches, employees, members, books, issued status, and return status. Each table includes relevant columns and relationships.
 
-''' sql
+'''sql
 DROP TABLE IF EXISTS branch;
 CREATE TABLE branch
          (
