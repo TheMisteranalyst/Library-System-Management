@@ -32,8 +32,10 @@ Below is the database schema for the Library Management System:
 ![Library Management System Schema](Library%20system%20management%20project.pgerd.png)
 
 
+Database Creation: Created a database named Library_Management_Project.
+Table Creation: Created tables for branches, employees, members, books, issued status, and return status. Each table includes relevant columns and relationships.
 
+This project highlights my ability to work with databases and solve practical challenges through robust and efficient SQL implementations.
 
-This project highlights my ability to work with databases and solve practical challenges through robust and efficient SQL implementations.  
 
 **Check out the project files and SQL scripts in the repository!**
