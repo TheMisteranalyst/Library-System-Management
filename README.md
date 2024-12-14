@@ -183,7 +183,8 @@ SELECT * FROM book_cnt;
 ```
 ## 4. Data Analysis & Findings
 ### Task 7. Retrieve All Books in a Specific Category:
-``sql
+
+```sql
 SELECT * FROM books WHERE category='Classic';
 ```
 
