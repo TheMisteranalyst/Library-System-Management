@@ -166,7 +166,7 @@ JOIN issued_status ON members.member_id = issued_status.issued_member_id
 GROUP BY members.member_id, members.member_name
 HAVING COUNT(issued_status.issued_member_id) > 1;
 ```
-### CTAS
+### 3. CTAS (Create Table As Select)
 ### Task 6: Create Summary Tables:
 **Used CTAS to generate new tables based on query results each book and total book_issued_cnt**
 ```sql
@@ -181,7 +181,11 @@ GROUP BY 1,2;
 
 SELECT * FROM book_cnt;
 ```
-
+## 4. Data Analysis & Findings
+### Task 7. Retrieve All Books in a Specific Category:
+``sql
+SELECT * FROM books WHERE category='Classic';
+```
 
 This project highlights my ability to work with databases and solve practical challenges through robust and efficient SQL implementations.
 
