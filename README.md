@@ -24,7 +24,7 @@ This project demonstrates the design and implementation of a **Library Managemen
 - Effective data management and problem-solving in library operations.
 
 # Project structure
-#### 1. Database Schema
+### 1. Database Schema
 
 Below is the database schema for the Library Management System:
 
