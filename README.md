@@ -122,6 +122,12 @@ ALTER TABLE return_status
 ADD CONSTRAINT fk_issue_status 
 FOREIGN KEY (issued_id) 
 REFERENCES issued_status(issued_id);
+```
+### 2. CRUD Operations
+Create: Inserted sample records into the books table.
+Read: Retrieved and displayed data from various tables.
+Update: Updated records in the employees table.
+Delete: Removed records from the members table as needed.
 
 This project highlights my ability to work with databases and solve practical challenges through robust and efficient SQL implementations.
 
